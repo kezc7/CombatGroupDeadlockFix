@@ -2,7 +2,7 @@ set_xmakever('3.0.1')
 includes('lib/commonlibsse-ng')
 
 set_project('CombatGroupDeadlockFix')
-set_version('1.1.0')
+set_version('1.0.0')
 set_license('MIT')
 
 set_languages('c++23')

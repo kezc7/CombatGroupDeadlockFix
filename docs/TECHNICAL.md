@@ -1,5 +1,7 @@
 # Combat Group Deadlock Fix: technical notes
 
+> Version names: "1.0" in this document is the private development build of 2026-10-09 and "1.1" is the audited code, released publicly as **1.0.0**.
+
 Skyrim AE **1.6.1170** only (`SkyrimSE.exe` 1.6.1170.0). Every number written as an ID is an Address Library ID; RVAs are offsets from the start of the executable.
 
 ## How this was established
