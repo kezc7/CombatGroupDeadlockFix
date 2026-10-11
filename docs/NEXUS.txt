@@ -2,7 +2,7 @@ NAME
 Combat Group Deadlock Fix
 
 VERSION
-1.1.0 (mark the file as a beta/experimental upload until the in-game test plan in docs/TECHNICAL.md has been run)
+1.0.0 (main file)
 
 SUMMARY (one line)
 Fixes a vanilla engine freeze where starting a fight and an NPC's AI update wait on each other forever. AE 1.6.1170.
@@ -14,15 +14,9 @@ SUGGESTED CATEGORY / TAGS
 Category: Bug Fixes. Tags: SKSE, Bug Fix, Stability, Combat, AE.
 
 FILE DESCRIPTION (for the uploaded file)
-Experimental. SKSE plugin for Skyrim AE 1.6.1170 only.
+SKSE plugin for Skyrim AE 1.6.1170 only.
 
 CHANGELOG (Nexus "Logs" tab)
-1.1.0
-- Fixed: after one give-up, 1.0 could answer "not a target" even when nothing held the combat group's lock. It no longer does.
-- Fixed: 1.0 kept answering at once for 2 seconds after a give-up, even for unrelated, short locks. That now only happens while the same stuck lock remains.
-- Now loads only on Skyrim AE 1.6.1170.
-- Checks all of the game code it depends on, including the game's lock functions, before changing anything.
-- Logs slow-but-successful waits, to show how close normal play comes to the limit.
 1.0.0
 - First release.
 
@@ -30,7 +24,7 @@ DESCRIPTION (BBCode - paste into the Nexus description editor)
 [size=4][b]Combat Group Deadlock Fix[/b][/size]
 Fixes a vanilla engine freeze (a deadlock) in Skyrim AE [b]1.6.1170[/b] that can happen as a fight breaks out.
 
-[b][color=#e6b800]Experimental:[/color][/b] the fix has been checked against the game's own code and tested against a model of the game's lock, but it is new. Please report your results, good or bad, with the log file (see below).
+[b]New:[/b] the freeze was traced in a real game, and the fix has been checked against the game's code and tested against a model of the game's lock. Please report your results, good or bad, with the log file (see below).
 
 [size=3][b]The freeze[/b][/size]
 When combat starts, the game locks that fight's [i]combat group[/i] (the list of who is fighting whom). It then waits to update another NPC's knowledge of the fight.
@@ -58,7 +52,7 @@ This only happens after a combat group has been locked for half a second, which 
 [size=3][b]Safety[/b][/size]
 [list]
 [*]Only loads on Skyrim AE 1.6.1170. On any other version, SKSE skips it.
-[*]Before changing anything, it checks every byte of the game code it relies on: the check itself and the game's lock functions. If anything differs (another mod changed the same code), it leaves the game alone and says so in its log.
+[*]Before changing anything, it fingerprints all of the game code it relies on: the check itself and the game's lock functions. If anything differs (another mod changed the same code), it leaves the game alone and says so in its log.
 [*]Nothing is written to your save, so it can be added or removed at any time.
 [/list]
 

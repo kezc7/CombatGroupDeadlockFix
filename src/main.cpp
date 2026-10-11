@@ -40,7 +40,7 @@
 namespace
 {
     constexpr std::string_view kName = "CombatGroupDeadlockFix";
-    constexpr REL::Version kVersion{ 1, 1, 0, 0 };
+    constexpr REL::Version kVersion{ 1, 0, 0, 0 };
 
     // Half a second: far beyond any write hold in normal play (a hold that
     // long is already a visible hitch), short enough that the deadlock costs
