@@ -14,3 +14,5 @@ xmake f -P . -y -p windows -a x64 -m release --skyrim_ae=y --skyrim_se=n --skyri
 xmake build -y
 ```
 After a clone, fill the submodule first with `git submodule update --init --recursive`.
+
+Release: `scripts\package.ps1` builds and zips the mod into `dist/`. Technical notes: [docs/TECHNICAL.md](docs/TECHNICAL.md). Nexus page text: [docs/NEXUS.txt](docs/NEXUS.txt).
