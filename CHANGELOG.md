@@ -1,8 +1,10 @@
 # Changelog
 
-## 1.1.0 (2026-10-11)
+## 1.0.0 (2026-10-11)
 
-An audit against the 1.6.1170 machine code (see [docs/TECHNICAL.md](docs/TECHNICAL.md)).
+First public release. It replaces ID 44706 with the same check, done the same way, except that it stops waiting for a combat group's lock after 500 ms.
+
+It was audited against the 1.6.1170 code before release (see [docs/TECHNICAL.md](docs/TECHNICAL.md)); the changes from the private development build ("1.0" in the docs) were:
 
 **Fixes**
 - **Fast-fail no longer answers "not a target" when no writer holds the lock.** 1.0's fast-fail mode counted a lost race with another *reader* as a failure. For 2 s after any give-up, that thread could get false answers about the group while only readers were around: 14–48% of tries in the lock test. The read-lock now retries reader races at once, as the game's `LockForRead` does, and only waits on a writer.
@@ -24,11 +26,11 @@ An audit against the 1.6.1170 machine code (see [docs/TECHNICAL.md](docs/TECHNIC
 **Other changes**
 - Waits of 100 ms or more that still get the lock are logged (rate-limited), to show how close normal play comes to the 500 ms limit.
 - Logging is rate-limited to the first 20 of each kind, then every 100th, and never happens while the combat group's lock is held.
-- The DLL carries a version resource (1.1.0); 1.0's read 0.0.0.
+- The DLL carries a version resource (1.0.0); the development build's read 0.0.0.
 - Added `tests/locktest`, which runs the bounded read-lock against a model of the game's lock.
 - Install checks compare length and FNV-1a 64 fingerprints of the game's code (`src/GameFingerprints.h`), not copies of it; no game code is in the repository or the DLL.
 - The packaging script always builds release, runs the lock test, and refuses a stale DLL.
 
-## 1.0.0 (2026-10-09)
+## Before release
 
-First version. Replaces ID 44706 with a version that stops waiting for a combat group's lock after 500 ms.
+- **Development build (2026-10-09, "1.0" in the docs):** the first version, not published.
