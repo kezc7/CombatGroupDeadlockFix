@@ -1,6 +1,6 @@
 // Combat Group Deadlock Fix (Skyrim AE 1.6.1170, SKSE).
 //
-// A vanilla engine deadlock, traced in Kev's game on 2026-10-09 (a debugger
+// A vanilla engine deadlock, traced in the author's game on 2026-10-09 (a debugger
 // snapshot of the frozen process, then the code read from the running game):
 //
 //   Thread A starts combat (Actor::StartCombat, ID 38561). It takes the game's
