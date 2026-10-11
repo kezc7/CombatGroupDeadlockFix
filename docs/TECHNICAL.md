@@ -188,7 +188,7 @@ Use 1.6.1170 with SKSE and Address Library. Keep `CombatGroupDeadlockFix.log` fr
     - For each give-up, note whether a freeze would have been expected and whether combat carried on normally.
     - Check the slow-wait lines. Waits approaching 500 ms in normal play would argue for raising the limit.
 
-Any give-up whose aftermath shows broken combat behaviour, any freeze with the plugin installed, or slow waits near the limit should hold the release.
+Please report any give-up followed by broken combat behaviour, any freeze with the plugin installed, or slow waits near the limit, with the log.
 
 ## Build
 

@@ -1,4 +1,4 @@
-Combat Group Deadlock Fix 1.0.0
+Combat Group Deadlock Fix 1.0.1
 Skyrim AE 1.6.1170 only - needs SKSE64 and Address Library for SKSE Plugins
 
 Fixes a freeze in the vanilla engine (a deadlock) that can happen as a fight
@@ -69,4 +69,6 @@ mod changes the same game code, this one refuses to install and logs it.
 
 Not for Skyrim SE 1.5.97, other AE versions, or VR.
 
-Source (MIT): see the mod page.
+GPL-3.0-or-later with the Modding Exception (CombatGroupDeadlockFix-LICENSE.txt
+and CombatGroupDeadlockFix-EXCEPTIONS.md). Source and technical notes:
+https://github.com/kezc7/CombatGroupDeadlockFix
