@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 (2026-10-11)
+
+Licence and source only; the code is unchanged.
+
+- Relicensed to GPL-3.0-or-later with the Modding Exception, the terms of CommonLibSSE-NG v7, which the plugin is built with. Earlier releases said MIT by mistake.
+- The source is public: https://github.com/kezc7/CombatGroupDeadlockFix
+- The download includes the licence (`CombatGroupDeadlockFix-LICENSE.txt`) and the exceptions (`CombatGroupDeadlockFix-EXCEPTIONS.md`).
+
 ## 1.0.0 (2026-10-11)
 
 First public release. It replaces ID 44706 with the same check, done the same way, except that it stops waiting for a combat group's lock after 500 ms.

@@ -37,6 +37,8 @@ if (Test-Path $stage) { Remove-Item -Recurse -Force $stage }
 New-Item -ItemType Directory -Force $plugins | Out-Null
 Copy-Item -Force $dll $plugins
 Copy-Item -Force (Join-Path $root 'release\CombatGroupDeadlockFix-readme.txt') $plugins
+Copy-Item (Join-Path $root 'LICENSE') (Join-Path $plugins 'CombatGroupDeadlockFix-LICENSE.txt')
+Copy-Item (Join-Path $root 'EXCEPTIONS.md') (Join-Path $plugins 'CombatGroupDeadlockFix-EXCEPTIONS.md')
 
 $zip = Join-Path $root "dist\$name.zip"
 if (Test-Path $zip) { Remove-Item -Force $zip }

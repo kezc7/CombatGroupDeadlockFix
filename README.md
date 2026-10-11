@@ -2,7 +2,7 @@
 
 An SKSE plugin for **Skyrim AE 1.6.1170** that fixes a vanilla engine freeze (a deadlock) that can happen as a fight breaks out.
 
-**Status: 1.0.0, new.** The lock code and the replaced function have been verified against the 1.6.1170 code, and the lock is tested against a model of the game's lock. The freeze was traced in a real game; reports of the fix stepping in are welcome. See [docs/TECHNICAL.md](docs/TECHNICAL.md#in-game-test-plan).
+**Status: new.** The lock code and the replaced function have been verified against the 1.6.1170 code, and the lock is tested against a model of the game's lock. The freeze was traced in a real game; reports of the fix stepping in are welcome. See [docs/TECHNICAL.md](docs/TECHNICAL.md#in-game-test-plan).
 
 ## The freeze
 
@@ -35,8 +35,8 @@ Release: `powershell -ExecutionPolicy Bypass -File scripts\package.ps1` builds, 
 ## Documents
 
 - [docs/TECHNICAL.md](docs/TECHNICAL.md): the deadlock, the game's lock as verified, the replacement, risks, alternatives and the test plan
-- [docs/AUDIT-2026-10-11.md](docs/AUDIT-2026-10-11.md): the pre-release audit report
 - [CHANGELOG.md](CHANGELOG.md)
-- [docs/NEXUS.txt](docs/NEXUS.txt): Nexus page text
 
-MIT licence.
+## Licence
+
+GPL-3.0-or-later with the Modding Exception: see [LICENSE](LICENSE) and [EXCEPTIONS.md](EXCEPTIONS.md). These are the same terms as [CommonLibSSE-NG](https://github.com/alandtse/CommonLibSSE-NG), which Combat Group Deadlock Fix is built with. Source: https://github.com/kezc7/CombatGroupDeadlockFix
