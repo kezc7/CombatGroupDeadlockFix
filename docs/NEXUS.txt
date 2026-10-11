@@ -1,0 +1,58 @@
+NAME
+Combat Group Deadlock Fix
+
+VERSION
+1.0.0
+
+SUMMARY (one line)
+Fixes a vanilla engine freeze where starting a fight and an NPC's AI update wait on each other forever.
+
+REQUIREMENTS
+SKSE64, Address Library for SKSE Plugins. Skyrim AE 1.6.1170.
+
+SUGGESTED CATEGORY / TAGS
+Category: Bug Fixes. Tags: SKSE, Bug Fix, Stability, Combat, AE.
+
+DESCRIPTION (BBCode - paste into the Nexus description editor)
+[size=4][b]Combat Group Deadlock Fix[/b][/size]
+Fixes a vanilla engine freeze (a deadlock) in Skyrim AE 1.6.1170 that can happen as a fight breaks out.
+
+[size=3][b]The freeze[/b][/size]
+When combat starts, the game locks that fight's [i]combat group[/i] (the list of who is fighting whom) and then waits to update another NPC's knowledge of the fight.
+
+At the same moment, that NPC's own AI update holds its knowledge list and asks the same combat group "is this person one of our targets?". Each side waits for the lock the other holds. The game's locks never give up, so the game freezes.
+
+It was found with a debugger snapshot of a frozen game.
+
+[size=3][b]The fix[/b][/size]
+That one "is this one of our targets?" check is replaced by the same check, done the same way, with one difference: if it can't get the combat group's lock within half a second, it gives up and answers "not a target" for that one check.
+[list]
+[*]In normal play the lock is held for a tiny fraction of that, so the check behaves exactly as before.
+[*]Only in the deadlock does it give up, which lets both sides carry on.
+[*]The worst case is a brief hitch instead of a hard freeze.
+[*]Nothing else in the game is changed.
+[/list]
+
+[size=3][b]Safety[/b][/size]
+[list]
+[*]Every byte it relies on is checked first. If anything differs (another game version, or another mod changed the same function), the plugin leaves the game alone and says so in its log.
+[*]Nothing is written to your save, so it can be added or removed at any time.
+[/list]
+
+[size=3][b]Requirements[/b][/size]
+[list]
+[*]Skyrim AE [b]1.6.1170[/b]
+[*]SKSE64
+[*]Address Library for SKSE Plugins
+[/list]
+Not for SE 1.5.97 or VR.
+
+[size=3][b]Compatibility[/b][/size]
+Works alongside other freeze and crash fixes, including Skyrim Freeze Fix NG and Interrupt Package Deadlock Fix, which fix different freezes.
+
+[size=3][b]Log[/b][/size]
+[code]Documents\My Games\Skyrim Special Edition\SKSE\CombatGroupDeadlockFix.log[/code]
+"installed at ..." means the check was replaced. Each "gave up waiting for a combat group's lock" line is a freeze the fix stopped.
+
+[size=3][b]Source[/b][/size]
+MIT licence. Built with CommonLibSSE-NG. Technical notes and source: [i](link to the GitHub repo)[/i]
