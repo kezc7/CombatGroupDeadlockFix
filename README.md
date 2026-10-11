@@ -1,18 +1,42 @@
 # Combat Group Deadlock Fix
 
-An SKSE plugin for Skyrim AE 1.6.1170 that fixes a vanilla engine freeze.
+An SKSE plugin for **Skyrim AE 1.6.1170** that fixes a vanilla engine freeze (a deadlock) that can happen as a fight breaks out.
 
-**The freeze:** starting combat locks a combat group for writing and then waits on another actor's AI data. That actor's update holds its AI data and asks whether someone is a target of the same combat group (Address Library ID 44706). Each waits for the other forever, and the game freezes.
+**Status: experimental.** The lock code and the replaced function have been verified against the 1.6.1170 machine code, and the lock is tested against a model of the game's lock. The fix has not yet been validated in game. See [docs/TECHNICAL.md](docs/TECHNICAL.md#in-game-test-plan).
 
-**The fix:** ID 44706 is replaced by the same check, made the same way, except that it gives up waiting for the group's lock after half a second and answers "not a target" for that one check. Every patched byte is checked first; if anything differs, the plugin does nothing.
+## The freeze
 
-Traced in game on 2026-10-09 with a debugger snapshot of the frozen process. Full notes are at the top of `src/main.cpp`.
+Starting combat locks a combat group for writing, then waits for another actor's AI data. That actor's update holds its AI data while it looks for hostile actors. For each candidate, it asks whether that actor is a target of the same combat group (Address Library ID 44706), which needs the group's lock. Each side waits for the other forever.
+
+## The fix
+
+ID 44706 is replaced by the same check, made the same way, with one difference: it stops waiting for the group's lock after half a second and answers "not a target" for that check.
+- While the same stuck writer still holds the lock, the same thread answers at once, so the rest of the update doesn't wait again.
+- In normal play the lock is held for far less than half a second, so the check behaves as before.
+- Before patching, the plugin checks every byte of 44706 and of the game's lock functions. If anything differs, it changes nothing.
+
+## Requirements
+
+- Skyrim Special Edition / Anniversary Edition **1.6.1170** exactly (not 1.5.97, 1.6.640, 1.7.x or VR)
+- [SKSE64](https://skse.silverlock.org/) for 1.6.1170
+- [Address Library for SKSE Plugins](https://www.nexusmods.com/skyrimspecialedition/mods/32444) (All in one, AE)
 
 ## Build
-```
-xmake f -P . -y -p windows -a x64 -m release --skyrim_ae=y --skyrim_se=n --skyrim_vr=n
-xmake build -y
-```
-After a clone, fill the submodule first with `git submodule update --init --recursive`.
 
-Release: `scripts\package.ps1` builds and zips the mod into `dist/`. Technical notes: [docs/TECHNICAL.md](docs/TECHNICAL.md). Nexus page text: [docs/NEXUS.txt](docs/NEXUS.txt).
+```
+git submodule update --init --recursive
+xmake f -P . -y -p windows -a x64 -m release --skyrim_ae=y --skyrim_se=n --skyrim_vr=n
+xmake build CombatGroupDeadlockFix
+xmake build locktest && xmake run locktest
+```
+
+Release: `powershell -ExecutionPolicy Bypass -File scripts\package.ps1` builds, runs the lock test and zips the mod into `dist/`.
+
+## Documents
+
+- [docs/TECHNICAL.md](docs/TECHNICAL.md): the deadlock, the game's lock as verified, the replacement, risks, alternatives and the test plan
+- [docs/AUDIT-2026-10-11.md](docs/AUDIT-2026-10-11.md): the 1.1 audit report and release recommendation
+- [CHANGELOG.md](CHANGELOG.md)
+- [docs/NEXUS.txt](docs/NEXUS.txt): Nexus page text
+
+MIT licence.

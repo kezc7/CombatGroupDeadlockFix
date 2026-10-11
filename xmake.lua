@@ -2,6 +2,7 @@ set_xmakever('3.0.1')
 includes('lib/commonlibsse-ng')
 
 set_project('CombatGroupDeadlockFix')
+set_version('1.1.0')
 set_license('MIT')
 
 set_languages('c++23')
@@ -26,3 +27,13 @@ target('CombatGroupDeadlockFix')
     add_files('src/**.cpp')
     add_includedirs('src')
     set_pcxxheader('src/pch.h')
+
+-- The bounded read-lock, run against a model of the game's lock (tests/locktest.cpp).
+-- Not built by default:  xmake build locktest  then  xmake run locktest
+target('locktest')
+    set_kind('binary')
+    set_default(false)
+    set_arch('x64')
+    add_files('tests/locktest.cpp')
+    add_includedirs('src')
+    add_defines('NOMINMAX', 'WIN32_LEAN_AND_MEAN')
